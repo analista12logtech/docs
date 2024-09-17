@@ -71,7 +71,12 @@ trouw-gravador-de-pacotes-10-001
 
 ## Recursos integrados por Tecnologia
 
-### 3S
+### 3S [TS-486](https://trouw-tecnologia.atlassian.net/browse/TS-486)
+
+* Requisita um único endpoint que trás o histórico de dados de posições e periféricos num único XML
+* Armazena em cache o último id de posição e o últumo id de sensor
+* O intervalo entre consultas pode ser alto (30s)
+* O envio de comandos ainda está pendente
 
 |Lat/Lng|Data Comp. Bordo|Data Tecn.|Endereço Tecn.|Mensagem|Viag|
 |-------|----------------|----------|--------------|--------|----|
@@ -89,7 +94,12 @@ trouw-gravador-de-pacotes-10-001
 
 ---
 
-### Addlog
+### Addlog [TS-494](https://trouw-tecnologia.atlassian.net/browse/TS-494)
+
+* Requisita um único endpoint que trás a última posição de todos os veículos
+* O cliente é identificado na url, é um endepoint diferente para cada cliente
+* Armazena em cache a data de da última posição de cada terminal
+* O tempo entre requisições pode ser baixíssimo (1s)
 
 |Lat/Lng|Data Comp. Bordo|Data Tecn.|Endereço Tecn.|Mensagem|Viag|
 |-------|----------------|----------|--------------|--------|----|
@@ -105,7 +115,9 @@ trouw-gravador-de-pacotes-10-001
 
 ---
 
-### Maxtrack
+### Maxtrack [TS-493](https://trouw-tecnologia.atlassian.net/browse/TS-493)
+
+* Consome uma fila do RabbitMQ da Maxtrack
 
 |Lat/Lng|Data Comp. Bordo|Data Tecn.|Endereço Tecn.|Mensagem|Viag|
 |-------|----------------|----------|--------------|--------|----|
@@ -121,7 +133,12 @@ trouw-gravador-de-pacotes-10-001
 
 ---
 
-### Sighra
+### Sighra [TS-487](https://trouw-tecnologia.atlassian.net/browse/TS-487)
+
+* Consulta o banco de dados mysql da Sighra diretamente (instalado em rede local da Trouw)
+* Armazena em cache o último id de periféricos, mensagens e posições
+* As tabelas de posição são diárias no formato DDMMYYYY
+* Pode ter um tempo entre consultas baixíssimo (3s) 
 
 |Lat/Lng|Data Comp. Bordo|Data Tecn.|Endereço Tecn.|Mensagem|Viag|
 |-------|----------------|----------|--------------|--------|----|
