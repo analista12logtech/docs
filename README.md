@@ -57,6 +57,7 @@ trouw-tecn-3s-5036
 trouw-tecn-sighra-16
 trouw-tecn-maxtrack-5043
 trouw-tecn-omnilink-wstt-5033
+trouw-tecn-onixsat-13
 
 trouw-gravador-de-pacotes-01-001
 trouw-gravador-de-pacotes-02-001
