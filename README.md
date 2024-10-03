@@ -56,6 +56,7 @@ trouw-tecn-addlog-5047
 trouw-tecn-3s-5036
 trouw-tecn-sighra-16
 trouw-tecn-maxtrack-5043
+trouw-tecn-omnilink-wstt-5033
 
 trouw-gravador-de-pacotes-01-001
 trouw-gravador-de-pacotes-02-001
@@ -165,4 +166,80 @@ trouw-gravador-de-pacotes-10-001
 | 68     | EVENTO DO SENSOR DE PORTA DE BAÚ 02              | INTEIRO - 0;1;2;3. 0=PORTA FECHADA; 1=PORTA ABERTA; 2=PORTA VIOLADA; 3=STATUS DESCONHECIDO |0;1       |
 | 69     | EVENTO DO SENSOR DE PORTA DE BAÚ 03              | INTEIRO - 0;1;2;3. 0=PORTA FECHADA; 1=PORTA ABERTA; 2=PORTA VIOLADA; 3=STATUS DESCONHECIDO |0;1       |
 | 88     | EVENTO DE STATUS DA BATERIA DO RASTREADOR        | INTEIRO - 0;1;2. 0=SEM BATERIA; 1=BATERIA NORMAL; 2=BATERIA FRACA |       |
+| 112    | EVENTO DE SENHA DE COAÇÃO DO MOTORISTA DA TECNOLOGIA |                                                         |1      |
+
+---
+
+### Omnilink-WSTT [TS-536](https://trouw-tecnologia.atlassian.net/browse/TS-536)
+
+* Consulta simultaneamente ObtemEventosNormais e ObtemEventosCtrl, retorno XML
+* Armazena em cache o último id de cada uma das consultas anteriores
+* Possui um cache com a VTEC de cada terminal, é possível que a omnilink retorne com a versão correta ou como genérica, armazena então a versão correta e atribui quando vier genérica
+* Existe tratamento na stored procedure `trouw_insere_pacote_recebimento_simples` para recebimentos gerados por essa integração
+* Pode ter um tempo entre consultas baixo (30s)
+* Possui múltiplas VTECs
+
+|Lat/Lng|Data Comp. Bordo|Data Tecn.|Endereço Tecn.|Mensagem|Viag|
+|-------|----------------|----------|--------------|--------|----|
+|&check;|&check;         |&check;   |&check;       |        |    |
+
+| Código | Evento                                           | Descrição                                               | Notas |
+|--------|--------------------------------------------------|---------------------------------------------------------|-------|
+| 1      | EVENTO DE ENGATE 01                              | INTEIRO - 0;1;2;3. 0=CARRETA1 DESENGATADA; 1=CARRETA1 ENGATADA; 2=CARRETA1 VIOLADA; 3=STATUS DESCONHECIDO |       |
+| 3      | EVENTO DE PORTAS DO CARONEIRO                    | INTEIRO - 0;1;2;3. 0=PORTA FECHADA; 1=PORTA ABERTA; 2=PORTA VIOLADA; 3=STATUS DESCONHECIDO |0;1;3   |
+| 4      | EVENTO DE PORTAS DO MOTORISTA                    | INTEIRO - 0;1;2;3. 0=PORTA FECHADA; 1=PORTA ABERTA; 2=PORTA VIOLADA; 3=STATUS DESCONHECIDO |0;1;3   |
+| 8      | EVENTO DE VELOCIDADE                             | INTEIRO - VALOR DA VELOCIDADE RECEBIDA                  |       |
+| 10     | EVENTO DE HODÔMETRO                              | INTEIRO - VALOR DO HODÔMETRO RECEBIDO                   |       |
+| 12     | EVENTO DE GPS                                    | INTEIRO - 0;1;2;3. 0=GPS PARADO; 1=GPS FUNCIONANDO; 2=GPS VIOLADO; 3=STATUS DESCONHECIDO |0;1;2    |
+| 17     | EVENTO DE BOTÃO DE PÂNICO                        | INTEIRO - 0;1;2;3. 0=PÂNICO NÃO PRESSIONADO; 1=PÂNICO PRESSIONADO; 2=NÃO USAR; 3=NÃO USAR |1      |
+| 30     | EVENTO DE IGNIÇÃO                                | INTEIRO - 0;1;2;3. 0=IGNIÇÃO DESLIGADA; 1=IGNIÇÃO LIGADA; 2=NÃO USAR; 3=STATUS DESCONHECIDO |       |
+| 67     | EVENTO DO SENSOR DE PORTA DE BAÚ 01              | INTEIRO - 0;1;2;3. 0=PORTA FECHADA; 1=PORTA ABERTA; 2=PORTA VIOLADA; 3=STATUS DESCONHECIDO |0;1;3    |
+| 77     | EVENTO DE DESVIO DE ROTA DA TECNOLOGIA           | INTEIRO - 0;1;2;3. 0=NORMAL; 1=FORA DA ROTA; 2=NÃO USAR; 3=NÃO USAR |1      |
+
+---
+
+### Onixsat [TS-533](https://trouw-tecnologia.atlassian.net/browse/TS-533)
+
+* Consulta RequestMensagemCB, retorno ZIP com XMLs
+* Armazena em cache o último id de pacote
+* Possui um cache com a VTEC de cada terminal, que é recebido em consulta posterior, essa consulta só pode ser feita a cada 5min então caso receba um que não está em cache e não pode consultar os veículos então segura em memória até a próxima consulta
+* Tempo mínimo entre consultas (30s)
+* Possui múltiplas VTECs
+
+|Lat/Lng|Data Comp. Bordo|Data Tecn.|Endereço Tecn.|Mensagem|Viag|
+|-------|----------------|----------|--------------|--------|----|
+|&check;|&check;         |&check;   |&check;       |&check; |    |
+
+| Código | Evento                                           | Descrição                                               | Notas |
+|--------|--------------------------------------------------|---------------------------------------------------------|-------|
+| 1      | EVENTO DE ENGATE 01                              | INTEIRO - 0;1;2;3. 0=CARRETA1 DESENGATADA; 1=CARRETA1 ENGATADA; 2=CARRETA1 VIOLADA; 3=STATUS DESCONHECIDO |0;1     |
+| 3      | EVENTO DE PORTAS DO CARONEIRO                    | INTEIRO - 0;1;2;3. 0=PORTA FECHADA; 1=PORTA ABERTA; 2=PORTA VIOLADA; 3=STATUS DESCONHECIDO |0;1;2   |
+| 4      | EVENTO DE PORTAS DO MOTORISTA                    | INTEIRO - 0;1;2;3. 0=PORTA FECHADA; 1=PORTA ABERTA; 2=PORTA VIOLADA; 3=STATUS DESCONHECIDO |0;1;2   |
+| 6      | EVENTO DE TRAVA DE 5 RODA                        | INTEIRO - 0;1;2;3. 0=5RODA DESTRAVADA; 1=5RODA TRAVADA; 2=5RODA VIOLADA; 3=STATUS DESCONHECIDO |0;1    |
+| 7      | EVENTO DE SENSOR DE PAINEL                       | INTEIRO - 0;1;2;3. 0=PAINEL NÃO VIOLADO; 1=NÃO USAR; 2=PAINEL VIOLADO; 3=STATUS DESCONHECIDO |2      |
+| 8      | EVENTO DE VELOCIDADE                             | INTEIRO - VALOR DA VELOCIDADE RECEBIDA                  |       |
+| 9      | EVENTO DE RPM                                    | INTEIRO - VALOR DO RPM RECEBIDO                         |       |
+| 10     | EVENTO DE HODÔMETRO                              | INTEIRO - VALOR DO HODÔMETRO RECEBIDO                   |       |
+| 11     | EVENTO DE TEMPERATURA SENSOR 01                  | INTEIRO - VALOR DA TEMPERATURA RECEBIDA                 |       |
+| 13     | EVENTO DE TECLADO                                | INTEIRO - 0;1;2;3. 0=TECLADO PARADO; 1=TECLADO FUNCIONANDO; 2=TECLADO VIOLADO; 3=STATUS DESCONHECIDO |0      |
+| 14     | EVENTO DE SENSOR DE ANTENA                       | INTEIRO - 0;1;2;3. 0=ANTENA COM PROBLEMA; 1=ANTENA FUNCIONANDO; 2=ANTENA VIOLADA; 3=STATUS DESCONHECIDO |2      |
+| 16     | EVENTO DE PERDA DE SINAL                         | INTEIRO - 0;1;2;3. 0=SEM SINAL; 1=COM SINAL; 2=NÃO USAR; 3=NÃO USAR |1      |
+| 17     | EVENTO DE BOTÃO DE PÂNICO                        | INTEIRO - 0;1;2;3. 0=PÂNICO NÃO PRESSIONADO; 1=PÂNICO PRESSIONADO; 2=NÃO USAR; 3=NÃO USAR |1      |
+| 30     | EVENTO DE IGNIÇÃO                                | INTEIRO - 0;1;2;3. 0=IGNIÇÃO DESLIGADA; 1=IGNIÇÃO LIGADA; 2=NÃO USAR; 3=STATUS DESCONHECIDO |0;1     |
+| 32     | EVENTO DE BLOQUEIO                               | INTEIRO - 0;1;2;3. 0=VEÍCULO NÃO BLOQUEADO; 1=VEÍCULO BLOQUEADO; 2=NÃO USAR; 3=STATUS DESCONHECIDO |0;1     |
+| 33     | EVENTO DE TEMPERATURA SENSOR 02                  | INTEIRO - VALOR DA TEMPERATURA RECEBIDA                 |       |
+| 34     | EVENTO DE TEMPERATURA SENSOR 03                  | INTEIRO - VALOR DA TEMPERATURA RECEBIDA                 |       |
+| 42     | EVENTO DE ENGATE 02                              | INTEIRO - 0;1;2;3. 0=CARRETA2 DESENGATADA; 1=CARRETA2 ENGATADA; 2=CARRETA2 VIOLADA; 3=STATUS DESCONHECIDO |0;1     |
+| 46     | EVENTO DE AVISO SONORO SIRENE                    | INTEIRO - 0;1;2;3. 0=SIRENE DESLIGADA; 1=SIRENE LIGADA; 2=NÃO USAR; 3=STATUS DESCONHECIDO |1      |
+| 48     | EVENTO DE AVISO SONORO BUZZER                    | INTEIRO - 0;1;2;3. 0=BUZZER DESLIGADO; 1=BUZZER LIGADO; 2=NÃO USAR; 3=STATUS DESCONHECIDO |0;1    |
+| 51     | EVENTO DE BATERIA                                | INTEIRO - 0;1;2;3. 0=BATERIA DESLIGADA; 1=BATERIA LIGADA; 2=BATERIA VIOLADA; 3=STATUS DESCONHECIDO |2      |
+| 52     | EVENTO DE VELOCÍMETRO                            | INTEIRO - 0;1;2;3. 0=NÃO USAR; 1=VELOCÍMETRO NÃO VIOLADO; 2=VELOCÍMETRO VIOLADO; 3=STATUS DESCONHECIDO |2      |
+| 53     | EVENTO DE PISCA ALERTA                           | INTEIRO - 0;1;2;3. 0=PISCA ALERTA DESLIGADO; 1=PISCA ALERTA LIGADO; 2=NÃO USAR; 3=STATUS DESCONHECIDO |0;1     |
+| 54     | EVENTO DE JANELA DO MOTORISTA                    | INTEIRO - 0;1;2;3. 0=JANELA FECHADA; 1=JANELA ABERTA; 2=JANELA VIOLADA; 3=STATUS DESCONHECIDO |2      |
+| 55     | EVENTO DE JANELA DO CARONEIRO                    | INTEIRO - 0;1;2;3. 0=JANELA FECHADA; 1=JANELA ABERTA; 2=JANELA VIOLADA; 3=STATUS DESCONHECIDO |2      |
+| 67     | EVENTO DO SENSOR DE PORTA DE BAÚ 01              | INTEIRO - 0;1;2;3. 0=PORTA FECHADA; 1=PORTA ABERTA; 2=PORTA VIOLADA; 3=STATUS DESCONHECIDO |0;1     |
+| 68     | EVENTO DO SENSOR DE PORTA DE BAÚ 02              | INTEIRO - 0;1;2;3. 0=PORTA FECHADA; 1=PORTA ABERTA; 2=PORTA VIOLADA; 3=STATUS DESCONHECIDO |1      |
+| 69     | EVENTO DO SENSOR DE PORTA DE BAÚ 03              | INTEIRO - 0;1;2;3. 0=PORTA FECHADA; 1=PORTA ABERTA; 2=PORTA VIOLADA; 3=STATUS DESCONHECIDO |1      |
+| 70     | EVENTO DO SENSOR DE PORTA DE BAÚ 04              | INTEIRO - 0;1;2;3. 0=PORTA FECHADA; 1=PORTA ABERTA; 2=PORTA VIOLADA; 3=STATUS DESCONHECIDO |1      |
+| 79     | EVENTO DE SENSOR DE JAMMER DETECTADO             | 1=JAMMER DETECTADO                                      |       |
 | 112    | EVENTO DE SENHA DE COAÇÃO DO MOTORISTA DA TECNOLOGIA |                                                         |1      |
