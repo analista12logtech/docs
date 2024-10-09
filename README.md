@@ -58,6 +58,7 @@ trouw-tecn-sighra-16
 trouw-tecn-maxtrack-5043
 trouw-tecn-omnilink-wstt-5033
 trouw-tecn-onixsat-13
+trouw-tecn-sascarga-14
 
 trouw-gravador-de-pacotes-01-001
 trouw-gravador-de-pacotes-02-001
@@ -244,3 +245,26 @@ trouw-gravador-de-pacotes-10-001
 | 70     | EVENTO DO SENSOR DE PORTA DE BAÚ 04              | INTEIRO - 0;1;2;3. 0=PORTA FECHADA; 1=PORTA ABERTA; 2=PORTA VIOLADA; 3=STATUS DESCONHECIDO |1      |
 | 79     | EVENTO DE SENSOR DE JAMMER DETECTADO             | 1=JAMMER DETECTADO                                      |       |
 | 112    | EVENTO DE SENHA DE COAÇÃO DO MOTORISTA DA TECNOLOGIA |                                                         |1      |
+
+---
+
+### Sascar Sascarga [TS-538](https://trouw-tecnologia.atlassian.net/browse/TS-538)
+
+* Consulta obterPacotePosicoes, retorno XML
+* A própria sascar controla quais pacotes foram consumidos, então 2 requisições não vão retornar os mesmo dados
+* Armazena em cache o último id de cada uma das consultas anteriores para caso exista um gap no sequencial de id, consulta obterPacotePosicaoPorRange, também salva o range em cache
+* Possui um cache com a placa de cada terminal que usa como número, caso não tenha em cache consulta em obterVeiculos em no mínimo 5min de intervalo, mantem os veículos sem placa ainda em memória até próxima consulta  
+* Pode ter um tempo entre consultas baixo (30s)
+
+|Lat/Lng|Data Comp. Bordo|Data Tecn.|Endereço Tecn.|Mensagem|Viag|
+|-------|----------------|----------|--------------|--------|----|
+|&check;|&check;         |&check;   |&check;       |&check; |    |
+
+| Código | Evento                                           | Descrição                                               | Notas |
+|--------|--------------------------------------------------|---------------------------------------------------------|-------|
+| 11     | EVENTO DE TEMPERATURA SENSOR 01                  | INTEIRO - VALOR DA TEMPERATURA RECEBIDA                 |       |
+| 12     | EVENTO DE GPS                                    | INTEIRO - 0;1;2;3. 0=GPS PARADO; 1=GPS FUNCIONANDO; 2=GPS VIOLADO; 3=STATUS DESCONHECIDO |1;2     |
+| 30     | EVENTO DE IGNIÇÃO                                | INTEIRO - 0;1;2;3. 0=IGNIÇÃO DESLIGADA; 1=IGNIÇÃO LIGADA; 2=NÃO USAR; 3=STATUS DESCONHECIDO |0;1     |
+| 32     | EVENTO DE BLOQUEIO                               | INTEIRO - 0;1;2;3. 0=VEÍCULO NÃO BLOQUEADO; 1=VEÍCULO BLOQUEADO; 2=NÃO USAR; 3=STATUS DESCONHECIDO |       |
+| 33     | EVENTO DE TEMPERATURA SENSOR 02                  | INTEIRO - VALOR DA TEMPERATURA RECEBIDA                 |       |
+| 34     | EVENTO DE TEMPERATURA SENSOR 03                  | INTEIRO - VALOR DA TEMPERATURA RECEBIDA                 |       |
