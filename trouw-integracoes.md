@@ -62,6 +62,8 @@ trouw-tecn-sascarga-14
 trouw-tecn-getrack-5027
 trouw-tecn-getrack-5032
 trouw-tecn-getrack-5038
+trouw-tecn-autotrac-ade-5026
+trouw-tecn-autotrac-ade-5048
 
 trouw-gravador-de-pacotes-01-001
 trouw-gravador-de-pacotes-02-001
@@ -200,6 +202,28 @@ trouw-gravador-de-pacotes-10-001
 | 30     | EVENTO DE IGNIÇÃO                                | INTEIRO - 0;1;2;3. 0=IGNIÇÃO DESLIGADA; 1=IGNIÇÃO LIGADA; 2=NÃO USAR; 3=STATUS DESCONHECIDO |       |
 | 67     | EVENTO DO SENSOR DE PORTA DE BAÚ 01              | INTEIRO - 0;1;2;3. 0=PORTA FECHADA; 1=PORTA ABERTA; 2=PORTA VIOLADA; 3=STATUS DESCONHECIDO |0;1;3    |
 | 77     | EVENTO DE DESVIO DE ROTA DA TECNOLOGIA           | INTEIRO - 0;1;2;3. 0=NORMAL; 1=FORA DA ROTA; 2=NÃO USAR; 3=NÃO USAR |1      |
+
+---
+
+### Autotrac-ADE [TS-594](https://trouw-tecnologia.atlassian.net/browse/TS-594)
+
+* Consulta lista de contas e lista de veículos autorizados por conta, então requisita simultaneamente de 10 em 10 o histórico de posições por veículo
+* Armazena em cache o último id de cada uma das consultas anteriores
+* Possui um cache com a VTEC de cada terminal, é possível que a omnilink retorne com a versão correta ou como genérica, armazena então a versão correta e atribui quando vier genérica
+* Existe tratamento na stored procedure `trouw_insere_pacote_recebimento_simples` para recebimentos gerados por essa integração
+* Pode ter um tempo entre consultas baixo (30s)
+* Possui múltiplas VTECs
+
+|Lat/Lng|Data Comp. Bordo|Data Tecn.|Endereço Tecn.|Mensagem|Viag|
+|-------|----------------|----------|--------------|--------|----|
+|&check;|&check;         |&check;   |              |        |    |
+
+| Código | Evento                                           | Descrição                                               | Notas |
+|--------|--------------------------------------------------|---------------------------------------------------------|-------|
+| 8      | EVENTO DE VELOCIDADE                             | INTEIRO - VALOR DA VELOCIDADE RECEBIDA                  |       |
+| 10     | EVENTO DE HODÔMETRO                              | INTEIRO - VALOR DO HODÔMETRO RECEBIDO                   |       |
+| 30     | EVENTO DE IGNIÇÃO                                | INTEIRO - 0;1;2;3. 0=IGNIÇÃO DESLIGADA; 1=IGNIÇÃO LIGADA; 2=NÃO USAR; 3=STATUS DESCONHECIDO |0;1    |
+| 109    | Evento de Horímetro                              | VALOR DO HORÍMETRO EM MINUTOS                           |       |
 
 ---
 
