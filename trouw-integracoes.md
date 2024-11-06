@@ -64,6 +64,8 @@ trouw-tecn-getrack-5032
 trouw-tecn-getrack-5038
 trouw-tecn-autotrac-ade-5026
 trouw-tecn-autotrac-ade-5048
+trouw-tecn-goldensat-stc-5029
+trouw-tecn-goldensat-stc-5031
 
 trouw-gravador-de-pacotes-01-001
 trouw-gravador-de-pacotes-02-001
@@ -313,4 +315,25 @@ trouw-gravador-de-pacotes-10-001
 | 8      | EVENTO DE VELOCIDADE                             | INTEIRO - VALOR DA VELOCIDADE RECEBIDA                  |       |
 | 10     | EVENTO DE HODÔMETRO                              | INTEIRO - VALOR DO HODÔMETRO RECEBIDO                   |       |
 | 30     | EVENTO DE IGNIÇÃO                                | INTEIRO - 0;1;2;3. 0=IGNIÇÃO DESLIGADA; 1=IGNIÇÃO LIGADA; 2=NÃO USAR; 3=STATUS DESCONHECIDO |0;1     |
+| 109    | Evento de Horímetro                              | VALOR DO HORÍMETRO EM MINUTOS                           |       |
+
+---
+
+### Goldensat-STC [TS-591](https://trouw-tecnologia.atlassian.net/browse/TS-591)
+
+* Consulta última posição, mantém cache da última integrada
+* Mínimo de tempo entre consultas é 1 minuto
+
+|Lat/Lng|Data Comp. Bordo|Data Tecn.|Endereço Tecn.|Mensagem|Viag|
+|-------|----------------|----------|--------------|--------|----|
+|&check;|&check;         |&check;   |              |        |    |
+
+| Código | Evento                                           | Descrição                                               | Notas |
+|--------|--------------------------------------------------|---------------------------------------------------------|-------|
+| 8      | EVENTO DE VELOCIDADE                             | INTEIRO - VALOR DA VELOCIDADE RECEBIDA                  |       |
+| 10     | EVENTO DE HODÔMETRO                              | INTEIRO - VALOR DO HODÔMETRO RECEBIDO                   |       |
+| 11     | EVENTO DE TEMPERATURA SENSOR 01                  | INTEIRO - VALOR DA TEMPERATURA RECEBIDA                 |       |
+| 30     | EVENTO DE IGNIÇÃO                                | INTEIRO - 0;1;2;3. 0=IGNIÇÃO DESLIGADA; 1=IGNIÇÃO LIGADA; 2=NÃO USAR; 3=STATUS DESCONHECIDO |0;1;3   |
+| 33     | EVENTO DE TEMPERATURA SENSOR 02                  | INTEIRO - VALOR DA TEMPERATURA RECEBIDA                 |       |
+| 34     | EVENTO DE TEMPERATURA SENSOR 03                  | INTEIRO - VALOR DA TEMPERATURA RECEBIDA                 |       |
 | 109    | Evento de Horímetro                              | VALOR DO HORÍMETRO EM MINUTOS                           |       |
