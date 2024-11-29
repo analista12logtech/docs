@@ -211,10 +211,7 @@ trouw-gravador-de-pacotes-10-001
 
 * Consulta lista de contas e lista de veículos autorizados por conta, então requisita simultaneamente de 10 em 10 o histórico de posições por veículo
 * Armazena em cache o último id de cada uma das consultas anteriores
-* Possui um cache com a VTEC de cada terminal, é possível que a omnilink retorne com a versão correta ou como genérica, armazena então a versão correta e atribui quando vier genérica
-* Existe tratamento na stored procedure `trouw_insere_pacote_recebimento_simples` para recebimentos gerados por essa integração
 * Pode ter um tempo entre consultas baixo (30s)
-* Possui múltiplas VTECs
 
 |Lat/Lng|Data Comp. Bordo|Data Tecn.|Endereço Tecn.|Mensagem|Viag|
 |-------|----------------|----------|--------------|--------|----|
